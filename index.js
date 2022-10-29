@@ -1,13 +1,8 @@
+// Modules
 const fs = require("fs");
-//const readline = require("readline");
 const prompt = require("prompt-sync")({ sigint: true});
 
-/*const rl = readline.createInterface(
-{
-    input: process.stdin,
-    output: process.stdout
-});*/
-
+// Declarations
 let input_path = "";
 let is_valid_path = false;
 let input_buffer;
@@ -15,9 +10,10 @@ let input_text = "";
 let input_list = [];
 let list_obj = { list:[] };
 
+// Get path to text file
 while(!is_valid_path)
 {
-    input_path = prompt("Path to the input text file:");
+    input_path = prompt("Path to the input text file: ");
 
     if(input_path.endsWith(".txt"))
     {
@@ -29,12 +25,17 @@ while(!is_valid_path)
     }
 }
 
+// Get text buffer from file
 input_buffer = fs.readFileSync(input_path);
 
+// Get text from buffer
 input_text = input_buffer.toString();
 
+// Split Text into list
 input_list = input_text.split("\r\n");
 
+// Add list to object
 list_obj.list = input_list;
 
-fs.writeFileSync("output.json", JSON.stringify(list_obj, null, 4));
+// Write file
+fs.writeFileSync("output/output.json", JSON.stringify(list_obj, null, 4));
